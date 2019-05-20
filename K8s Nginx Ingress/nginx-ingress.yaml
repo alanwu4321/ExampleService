@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: v1-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: 'true'
+spec:
+  tls:
+  - hosts:
+    - v1.alan-wu.com
+    secretName: v1alanwu-secret
+  rules:
+  - host: v1.alan-wu.com
+    http:
+      paths:
+      - path: /get
+        backend:
+          serviceName: exampleservice
+          servicePort: 8081
+      - path: /
+        backend:
+          serviceName: my-mongo-test
+          servicePort: 8888
